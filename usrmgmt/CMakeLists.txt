@@ -15,3 +15,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../build/bin)
 # usrmgmt
 add_executable(manager src/manager.c)
 target_link_libraries(manager PRIVATE sqlite3)
+target_link_libraries(manager PRIVATE m)

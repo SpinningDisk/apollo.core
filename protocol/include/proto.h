@@ -1,5 +1,6 @@
 #ifndef PROTO_H
 #define PROTO_H
+#define PROTO_VER 1.0
 
 #include <Python.h>
 

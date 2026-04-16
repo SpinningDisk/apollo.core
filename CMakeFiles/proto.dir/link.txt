@@ -1,2 +1,0 @@
-/usr/bin/ar qc libproto.a CMakeFiles/proto.dir/protocol/src/protocol.c.o
-/usr/bin/ranlib libproto.a

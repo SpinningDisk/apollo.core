@@ -1,4 +1,0 @@
-/mnt/data/dev/control/core/CMakeFiles/socket.dir
-/mnt/data/dev/control/core/CMakeFiles/proto.dir
-/mnt/data/dev/control/core/CMakeFiles/edit_cache.dir
-/mnt/data/dev/control/core/CMakeFiles/rebuild_cache.dir

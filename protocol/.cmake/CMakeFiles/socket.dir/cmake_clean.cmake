@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/workspaces/yayadb-modules/protocol/build/lib/libsocket.a"
-  "/workspaces/yayadb-modules/protocol/build/lib/libsocket.pdb"
+  "/mnt/data/dev/botram-boetchen/core/protocol/build/lib/libsocket.a"
+  "/mnt/data/dev/botram-boetchen/core/protocol/build/lib/libsocket.pdb"
   "CMakeFiles/socket.dir/src/socket.c.o"
   "CMakeFiles/socket.dir/src/socket.c.o.d"
 )

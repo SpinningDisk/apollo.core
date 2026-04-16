@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
-  "/workspaces/yayadb-modules/protocol/build/bin/test"
-  "/workspaces/yayadb-modules/protocol/build/bin/test.pdb"
+  "CMakeFiles/test.dir/link.d"
+  "/mnt/data/dev/botram-boetchen/core/protocol/build/bin/test"
+  "/mnt/data/dev/botram-boetchen/core/protocol/build/bin/test.pdb"
   "CMakeFiles/test.dir/src/test.c.o"
   "CMakeFiles/test.dir/src/test.c.o.d"
 )

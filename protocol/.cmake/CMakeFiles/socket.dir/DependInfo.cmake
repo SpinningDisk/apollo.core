@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/workspaces/yayadb-modules/protocol/src/socket.c" "CMakeFiles/socket.dir/src/socket.c.o" "gcc" "CMakeFiles/socket.dir/src/socket.c.o.d"
+  "/mnt/data/dev/botram-boetchen/core/protocol/src/socket.c" "CMakeFiles/socket.dir/src/socket.c.o" "gcc" "CMakeFiles/socket.dir/src/socket.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

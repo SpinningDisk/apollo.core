@@ -1,22 +1,22 @@
 {
+    "usrmgmt":{
+        "description": "USeR ManaGeMenT. stores a users name, ID, \nDM ID, as well as logs and states of modules\nit is required by every app",
+        "deps": []
+    },
     "protocol":{
         "description": "IPC handler between python bot and C modules\nevery module __should__ depend on this to interact with the bot, so must be root",
-        "deps": []
+        "deps": ["usrmgmt"]
     },
     "lang":{
         "description": "custom language for bot users to send commands\n to bot running client (???)",
-        "deps": ["protocol"]
+        "deps": ["protocol", "usrmgmt"]
     },
     "clrpg":{
         "description": "planned to be a cute little rpg for bot users",
-        "deps": ["protocol", "lang"]
+        "deps": ["protocol", "usrmgmt", "lang"]
     },
     "rps":{
         "description": "rps bot for users to battle",
-        "deps": ["protocol", "lang"]
-    },
-    "usrmgmt":{
-        "description": "USeR ManaGeMenT. stores a users name, ID, \nDM ID, as well as logs and states of modules",
-        "deps": ["protocol"]
+        "deps": ["protocol", "usrmgmt", "lang"]
     }
 }

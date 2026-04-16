@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/workspaces/yayadb-modules/protocol/build/lib/libproto.a"
-  "/workspaces/yayadb-modules/protocol/build/lib/libproto.pdb"
+  "/mnt/data/dev/botram-boetchen/core/protocol/build/lib/libproto.a"
+  "/mnt/data/dev/botram-boetchen/core/protocol/build/lib/libproto.pdb"
   "CMakeFiles/proto.dir/src/proto.c.o"
   "CMakeFiles/proto.dir/src/proto.c.o.d"
 )

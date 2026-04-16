@@ -1,2 +1,2 @@
-/usr/bin/ar qc /workspaces/yayadb-modules/protocol/build/lib/libsocket.a CMakeFiles/socket.dir/src/socket.c.o
-/usr/bin/ranlib /workspaces/yayadb-modules/protocol/build/lib/libsocket.a
+/usr/bin/ar qc /mnt/data/dev/botram-boetchen/core/protocol/build/lib/libsocket.a CMakeFiles/socket.dir/src/socket.c.o
+/usr/bin/ranlib /mnt/data/dev/botram-boetchen/core/protocol/build/lib/libsocket.a

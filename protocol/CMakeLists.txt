@@ -15,6 +15,7 @@ find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 
 # protocol
 add_library(socket STATIC src/socket.c)
+target_include_directories(socket PUBLIC ${Python3_INCLUDE_DIRS})
 add_library(proto STATIC src/proto.c)
 target_include_directories(proto PUBLIC ${Python3_INCLUDE_DIRS})
 target_include_directories(proto PUBLIC include/)

@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/mnt/data/dev/control/core/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

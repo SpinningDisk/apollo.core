@@ -1,5 +1,5 @@
-/workspaces/yayadb-modules/protocol/.cmake/CMakeFiles/socket.dir
-/workspaces/yayadb-modules/protocol/.cmake/CMakeFiles/proto.dir
-/workspaces/yayadb-modules/protocol/.cmake/CMakeFiles/test.dir
-/workspaces/yayadb-modules/protocol/.cmake/CMakeFiles/edit_cache.dir
-/workspaces/yayadb-modules/protocol/.cmake/CMakeFiles/rebuild_cache.dir
+/mnt/data/dev/botram-boetchen/core/protocol/.cmake/CMakeFiles/socket.dir
+/mnt/data/dev/botram-boetchen/core/protocol/.cmake/CMakeFiles/proto.dir
+/mnt/data/dev/botram-boetchen/core/protocol/.cmake/CMakeFiles/test.dir
+/mnt/data/dev/botram-boetchen/core/protocol/.cmake/CMakeFiles/edit_cache.dir
+/mnt/data/dev/botram-boetchen/core/protocol/.cmake/CMakeFiles/rebuild_cache.dir

@@ -1,3 +1,3 @@
 file(REMOVE_RECURSE
-  "/workspaces/yayadb-modules/protocol/build/lib/libsocket.a"
+  "/mnt/data/dev/botram-boetchen/core/protocol/build/lib/libsocket.a"
 )

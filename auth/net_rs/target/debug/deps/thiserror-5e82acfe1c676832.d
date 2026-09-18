@@ -1,0 +1,14 @@
+/mnt/data/dev/apollo/.core/auth/net_rs/target/debug/deps/thiserror-5e82acfe1c676832.d: /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/display.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/var.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/private.rs /mnt/data/dev/apollo/.core/auth/net_rs/target/debug/build/thiserror-5fa21866256cd7a9/out/private.rs
+
+/mnt/data/dev/apollo/.core/auth/net_rs/target/debug/deps/libthiserror-5e82acfe1c676832.rlib: /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/display.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/var.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/private.rs /mnt/data/dev/apollo/.core/auth/net_rs/target/debug/build/thiserror-5fa21866256cd7a9/out/private.rs
+
+/mnt/data/dev/apollo/.core/auth/net_rs/target/debug/deps/libthiserror-5e82acfe1c676832.rmeta: /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/display.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/var.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/private.rs /mnt/data/dev/apollo/.core/auth/net_rs/target/debug/build/thiserror-5fa21866256cd7a9/out/private.rs
+
+/home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/lib.rs:
+/home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/aserror.rs:
+/home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/display.rs:
+/home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/var.rs:
+/home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-2.0.18/src/private.rs:
+/mnt/data/dev/apollo/.core/auth/net_rs/target/debug/build/thiserror-5fa21866256cd7a9/out/private.rs:
+
+# env-dep:OUT_DIR=/mnt/data/dev/apollo/.core/auth/net_rs/target/debug/build/thiserror-5fa21866256cd7a9/out

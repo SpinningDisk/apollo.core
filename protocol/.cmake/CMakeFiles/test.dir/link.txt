@@ -1,1 +1,0 @@
-/usr/bin/cc -Wl,--dependency-file=CMakeFiles/test.dir/link.d CMakeFiles/test.dir/src/test.c.o -o /mnt/data/dev/botram-boetchen/core/protocol/build/bin/test  /mnt/data/dev/botram-boetchen/core/protocol/build/lib/libproto.a /mnt/data/dev/botram-boetchen/core/protocol/build/lib/libsocket.a /usr/lib/libpython3.14.so -lm

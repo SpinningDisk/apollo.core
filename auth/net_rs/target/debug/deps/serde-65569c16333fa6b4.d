@@ -1,0 +1,14 @@
+/mnt/data/dev/apollo/.core/auth/net_rs/target/debug/deps/serde-65569c16333fa6b4.d: /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs /mnt/data/dev/apollo/.core/auth/net_rs/target/debug/build/serde-6b9f7078af7ee7e1/out/private.rs
+
+/mnt/data/dev/apollo/.core/auth/net_rs/target/debug/deps/libserde-65569c16333fa6b4.rlib: /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs /mnt/data/dev/apollo/.core/auth/net_rs/target/debug/build/serde-6b9f7078af7ee7e1/out/private.rs
+
+/mnt/data/dev/apollo/.core/auth/net_rs/target/debug/deps/libserde-65569c16333fa6b4.rmeta: /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs /home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs /mnt/data/dev/apollo/.core/auth/net_rs/target/debug/build/serde-6b9f7078af7ee7e1/out/private.rs
+
+/home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/lib.rs:
+/home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/integer128.rs:
+/home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/mod.rs:
+/home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/de.rs:
+/home/spinningdisk/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-1.0.228/src/private/ser.rs:
+/mnt/data/dev/apollo/.core/auth/net_rs/target/debug/build/serde-6b9f7078af7ee7e1/out/private.rs:
+
+# env-dep:OUT_DIR=/mnt/data/dev/apollo/.core/auth/net_rs/target/debug/build/serde-6b9f7078af7ee7e1/out

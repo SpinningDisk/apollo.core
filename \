@@ -1,0 +1,68 @@
+#ifndef PROTO_H
+#define PROTO_H
+#define PROTO_VER 0.1
+#include <stddef.h>
+#include <socket.h>
+#include <stdatomic.h>
+
+
+// common
+#define INSERT_CONST(buff, s1, s2, s3) strcpy(buff, s1);strcat(buff, s2);strcat(buff, s3);
+#define errc(eval, code, fmt) fprintf(stderr, "%s: %s\n", fmt, strerror(code));exit(eval);
+
+// specific
+typedef enum {
+    MSGPACK_OBJECT_NIL                  = 0x00,
+    MSGPACK_OBJECT_BOOLEAN              = 0x01,
+    MSGPACK_OBJECT_POSITIVE_INTEGER     = 0x02,
+    MSGPACK_OBJECT_NEGATIVE_INTEGER     = 0x03,
+    MSGPACK_OBJECT_FLOAT32              = 0x0a,
+    MSGPACK_OBJECT_FLOAT64              = 0x04,
+    MSGPACK_OBJECT_FLOAT                = 0x04,
+    MSGPACK_OBJECT_STR                  = 0x05,
+    MSGPACK_OBJECT_ARRAY                = 0x06,
+    MSGPACK_OBJECT_MAP                  = 0x07,
+    MSGPACK_OBJECT_BIN                  = 0x08,
+    MSGPACK_OBJECT_EXT                  = 0x09,
+    MSGPACK_CONTINUE                    = 0x0b,
+}t_parser_token_types;
+typedef struct s_parser_token{
+    t_parser_token_types type;
+    char* content;
+    size_t len;
+}t_parser_token;
+struct s_parser_state;
+typedef struct s_parser_state{
+    char* pos;
+    t_parser_token* tokens;
+    size_t token_count;
+    struct s_parser_state (*parse)(char*);
+}t_parser_state;
+typedef struct s_thread_result{
+    int id;
+    void* value;
+}t_thread_result;
+typedef struct s_proto{
+    t_parser_state* parser;
+    t_server* server;
+    
+    _Atomic pthread_t* threads;
+    _Atomic size_t thread_count;
+    
+    _Atomic t_thread_result *results;
+    _Atomic _Bool ready;
+}t_proto;
+
+
+t_parser_state* __initParser__(t_parser_state* self);
+void freeParser(t_parser_state* parser);
+t_proto* __initProto__(t_proto* self, const char* appName);
+void freeProto(t_proto* proto);
+
+t_proto* protoConnect(t_proto* proto, const char* appName);
+t_proto* protoRead(t_proto* proto, pthread_t thread);
+t_proto* protoJoinThread(t_proto* proto, pthread_t* thread);
+
+t_parser_state parse(char* bytes);
+
+#endif

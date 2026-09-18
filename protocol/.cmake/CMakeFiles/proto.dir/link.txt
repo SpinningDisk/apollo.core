@@ -1,2 +1,2 @@
-/usr/bin/ar qc /mnt/data/dev/botram-boetchen/core/protocol/build/lib/libproto.a CMakeFiles/proto.dir/src/proto.c.o
-/usr/bin/ranlib /mnt/data/dev/botram-boetchen/core/protocol/build/lib/libproto.a
+/usr/bin/ar qc /mnt/data/dev/apollo/.core/protocol/build/lib/libproto.a CMakeFiles/proto.dir/src/proto.c.o
+/usr/bin/ranlib /mnt/data/dev/apollo/.core/protocol/build/lib/libproto.a

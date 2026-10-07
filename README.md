@@ -1,2 +1,1 @@
-# kernel modules of the apollo
-
+# apollo kernel

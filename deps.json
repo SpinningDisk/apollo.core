@@ -7,6 +7,11 @@
     {
         "name": "tests",
         "description": "tests for kernel modules",
+        "deps": ["proto"]
+    },
+    {
+        "name": "kernel",
+        "description": "binder for every kernel module",
         "deps": [1]
     }
 }

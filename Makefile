@@ -22,9 +22,6 @@ build:
 	cp protocol/include/* build/include/;
 	cd protocol; mkdir -p .cmake build/lib build/bin; cmake -S ./ -B ./.cmake; cd .cmake; make;
 	mkdir build/bin/protocol/; cp -r protocol/build/bin/* build/bin/protocol/; cp -r protocol/build/lib/* build/lib/;
-	cp usrmgmt/include/* build/include/;
-	cd usrmgmt; mkdir -p .cmake build/lib build/bin; cmake -S ./ -B ./.cmake; cd .cmake; make;
-	mkdir build/bin/usrmgmt; cp -r usrmgmt/build/bin/* build/bin/usrmgmt/; cp -r usrmgmt/build/lib/* build/lib/;
 	cp tests/include/* build/include/;
 	cd tests; mkdir -p .cmake build/lib build/bin; cmake -S ./ -B ./.cmake; cd .cmake; make;
 	mkdir build/bin/tests; cp -r tests/build/bin/* build/bin/tests/; cp -r tests/build/lib/* build/lib/;
@@ -37,23 +34,13 @@ debug:
 	cp protocol/include/* build/include/;
 	cd protocol; mkdir -p .cmake build/lib build/bin; cmake -DCMAKE_BUILD_TYPE=Debug -S ./ -B ./.cmake; cd .cmake; make;
 	mkdir build/bin/protocol; cp -r protocol/build/bin/* build/bin/protocol/; cp -r protocol/build/lib/* build/lib/;
-	cp usrmgmt/include/* build/include/;
-	cd usrmgmt; mkdir -p .cmake build/lib build/bin; cmake -DCMAKE_BUILD_TYPE=Debug -S ./ -B ./.cmake; cd .cmake; make;
-	mkdir build/bin/usrmgmt; cp -r usrmgmt/build/bin/* build/bin/usrmgmt/; cp -r usrmgmt/build/lib/* build/lib/;
+	cp tests/include/* build/include/
+	cd tests; mkdir -p .cmake build/lib build/bin; cmake -DCMAKE_BUILD_TYPE=Debug -S ./ -B ./.cmake; cd .cmake; make;
+	mkdir build/bin/tests; cp -r tests/build/bin/* build/bin/tests/; cp -r tests/build/lib/* build/lib/;
 	# cd auth/net_rs; cargo build --release;
 	# cp -r auth/ build/auth;
 
 
-run:
-	make build
-	echo "running..."
-
-rnd:
-	make debug
-	echo "debugging"
 test:
-	make rnd
-	cp tests/include/* build/include/
-	cd tests; mkdir -p .cmake build/lib build/bin; cmake -DCMAKE_BUILD_TYPE=Debug -S ./ -B ./.cmake; cd .cmake; make;
-	mkdir build/bin/tests; cp -r tests/build/bin/* build/bin/tests/; cp -r tests/build/lib/* build/lib/;
+	make debug
 	build/bin/tests/tests

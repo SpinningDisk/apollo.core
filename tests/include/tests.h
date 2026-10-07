@@ -13,23 +13,23 @@ typedef struct s_Function_Trace{
 }t_Function_Trace;
 typedef struct s_Test_Result{
     char code;
-    char* name;
+    const char* name;
 
     // on crash
-    char* reason;
-    t_Function_Trace* trace;
+    char reason[1024];
+    t_Function_Trace trace;
 }t_Test_Result;
 
 
 void print_trace(t_Function_Trace* trace);
 void printt(t_Test_Result* res);
 _Bool arr_assert(char* expected, char* real, int size);
-#define ASSERT(expected, real) arr_assert(expected, real, sizeof(real))
+#define ASSERT(expected, real) expected==real ? true:false
 
 // test cases
 static void crash_function();
 t_Test_Result* test_crash();
-int test(t_Test_Result* (*fn)(), char* name);
+int test(t_Test_Result* (*fn)(), char* name, _Bool silent);
 
 
 t_Test_Result* proto_socket();

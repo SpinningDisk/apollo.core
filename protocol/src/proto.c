@@ -4,8 +4,17 @@
 #include <socket.h>
 #include <proto.h>
 
-
+// forward
 static t_Parser_State parse(char* bytes){};
+static void free_pti(t_Proto_Thread_Info* pti);
+static void free_proto(t_Proto* proto);
+static int proto_thread(t_Proto* proto, void* (*fn)(void*), void* arg);
+static void proto_connect(t_Proto* proto, const char* appName);
+static void check_segfaulted_thread(t_Proto* proto);
+static void* proto_join_thread(t_Proto* proto, int index);
+static void proto_read(t_Proto* proto);
+static t_Parser_State parse(char* bytes);
+
 
 t_Parser_State* init_parser(t_Parser_State* self){
     if(self==NULL){
@@ -22,30 +31,34 @@ void free_parser(t_Parser_State* parser){
     free(parser);
     return;
 }
-
 t_Proto_Thread_Info* init_pti(t_Proto_Thread_Info* pti){
     if(pti==NULL){
         pti = malloc(sizeof(t_Proto_Thread_Info));
     }
     pti->id = -1;
-    pti->io = malloc(2*sizeof(void*));
-    pti->io[0] = malloc(sizeof(char*));
-    pti->io[1] = malloc(sizeof(char*));
+    pti->io = malloc(2*sizeof(char*));
+    pti->io[0] = malloc(sizeof(char)*1024);
+    pti->io[1] = malloc(sizeof(char)*1024);
 
-    pthread_mutexattr_t    attr;
+    pthread_mutexattr_t attr;
     pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_NORMAL);
     pthread_mutex_init(&pti->ready, &attr);
     return pti;
 }
 static void free_pti(t_Proto_Thread_Info* pti){
     pthread_mutex_lock(&pti->ready);
-    char* ptr = pti->io[1];
-    free(ptr);
-    // free((char*)pti->io[0]);
-    // free((char*)pti->io[1]);
+    free(pti->io[1]);
+    free(pti->io[0]);
     free(pti->io);
     pthread_mutex_destroy(&pti->ready);
-    free(pti);
+    return;
+}
+static void xfree_pti(t_Proto_Thread_Info* pti){
+    pthread_mutex_lock(&pti->ready);
+    if(pti->io[1]!=NULL){free(pti->io[1]);free(pti->io[0]);}
+    free(pti->io);
+    pthread_mutex_unlock(&pti->ready);
+    return;
 }
 t_Proto* init_proto(t_Proto* self, const char* appName){
     if(self==NULL){
@@ -59,9 +72,12 @@ t_Proto* init_proto(t_Proto* self, const char* appName){
 
     self->server = init_server(self->server, path, 1);        // sanitizations problems
 
-    self->threads = (pthread_t*)calloc(2, sizeof(pthread_t));
-    self->threadCount = 0;
-    self->results = (t_Proto_Thread_Info*)calloc(2, sizeof(t_Proto_Thread_Info));
+    self->threads = (pthread_t*)calloc(PROTO_MAX_THREADS, sizeof(pthread_t));
+    self->ptiPool = (t_Proto_Thread_Info*)calloc(PROTO_MAX_THREADS, sizeof(t_Proto_Thread_Info));
+    for(size_t i=0; i<PROTO_MAX_THREADS; i++){init_pti(&self->ptiPool[i]);}
+    self->freePtiSlots = (bool*)calloc(PROTO_MAX_THREADS, sizeof(bool));
+    for(size_t i=0; i<PROTO_MAX_THREADS; i++){self->freePtiSlots[i] = true;}
+
 
     pthread_mutexattr_t    attr;
     pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
@@ -84,25 +100,17 @@ static void free_proto(t_Proto* self){
     free(self->server);
 
     pthread_mutex_lock(&self->ready);
-    pthread_mutex_unlock(&self->ready);
-
     free(self->threads);
-    for(int i=0; i<self->threadCount; i++){
-        free_pti(&self->results[i]);
-    }
-    // free(self->results);
+    for(size_t i=0; i<PROTO_MAX_THREADS; i++){xfree_pti(&self->ptiPool[i]);}
+    free(self->ptiPool);
+    pthread_mutex_unlock(&self->ready);
     pthread_mutex_destroy(&self->ready);
-
-    free(self);
     return;
 }
 
 
-static void proto_thread(t_Proto* Proto, void* (*fn)(void*), void* arg){
+static int proto_thread(t_Proto* Proto, void* (*fn)(void*), void* arg){
     // creates thread running function "fn" given argument "arg" and stores thread in "Proto->threads" along with some threading information and results in Proto->results
-    #ifdef DEBUG
-    printf("[Proto]:\tenter <proto_thread>@Proto.c\n");
-    #endif
 
     pthread_attr_t attr;
     int c = pthread_attr_init(&attr);
@@ -111,67 +119,56 @@ static void proto_thread(t_Proto* Proto, void* (*fn)(void*), void* arg){
     c = pthread_attr_setstacksize(&attr, 0x400000);
     if(c!=0){errc(EXIT_FAILURE, c, "[Proto]@pthread_attr_setstacksize");}
 
-    #ifdef DEBUG
-    printf("  locking for Proto @%p\n", Proto);
-    #endif
     pthread_mutex_lock(&Proto->ready);
-    Proto->threads = realloc(Proto->threads, sizeof(pthread_t)*(Proto->threadCount+1));
-    Proto->results = realloc(Proto->results, sizeof(t_Proto_Thread_Info)*(Proto->threadCount+1));
-    init_pti(&Proto->results[Proto->threadCount]);
-    void** io = Proto->results[Proto->threadCount].io;
-    io[1] = arg;
-
-    c = pthread_create(&(Proto->threads[Proto->threadCount]), &attr, fn, io);
-    if (c!=0){pthread_mutex_unlock(&Proto->ready); errc(EXIT_FAILURE, c, "[Proto]@pthread_create");}
-    Proto->threadCount++;
-    pthread_mutex_unlock(&Proto->ready);
-    #ifdef DEBUG
-    printf("unlocking for Proto @%p\n", Proto);
-    #endif
-
-    c = pthread_attr_destroy(&attr);
-    if(c!=0){errc(EXIT_FAILURE, c, "[Proto]@pthread_attr_destroy");}
-    return;
-
-}
-static void* _proto_connect(void* args){
-    void** io = args;
-    char* path = (char*)(io[1]);
-
-    void* con = path;
-
-    io[0] = malloc(sizeof(t_Socket));
-    memcpy(io[0], con, sizeof(t_Socket));
-    return io[0];
-}
-static void proto_connect(t_Proto* proto, const char* appName){
-    proto->thread(proto, _proto_connect, (void*)appName);
-    return;
-}
-static void* proto_join_thread(t_Proto* Proto, pthread_t* thread){
-    void* result = NULL;
-#ifdef DEBUG
-    printf("[Proto@%p]:\tentering pJT for thread %d\n", Proto, *thread);
-#endif
-    char is_owner=(char)0;
-    for(size_t i=0; i<Proto->threadCount; i++){
-        if(thread==&(Proto->threads[i])){
-            is_owner=1;
+    char** io = NULL;
+    size_t i=0;
+    for(; i<PROTO_MAX_THREADS; i++){
+        if(Proto->freePtiSlots[i]){
+            Proto->freePtiSlots[i] = false;
+            init_pti(&Proto->ptiPool[i]);
+            io = Proto->ptiPool[i].io;
             break;
         }
     }
-#ifdef DEBUG
-    printf("[Proto@%p]:\tis owner of %d? %d\n", Proto, *thread, is_owner);
-#endif
-    if(is_owner){
-        pthread_mutex_lock(&Proto->results[Proto->threadCount-1].ready);
-        int c = pthread_join(*thread, Proto->results[Proto->threadCount-1].io);
-        result = Proto->results[Proto->threadCount-1].io[0];
-#ifdef DEBUG
-        printf("[Proto@%p]:\tjoined %p with result %d stored to %p, possibly errored with %d\n", Proto, *thread, *(int*)result, result, c);
-#endif
-        pthread_mutex_unlock(&Proto->results[Proto->threadCount-1].ready);
-    }
+    if(io==NULL){errc(EXIT_FAILURE, 0, "[Proto]@no free PTI slots");}
+    io[1] = arg;
+    c = pthread_create(&(Proto->threads[i]), &attr, fn, io);
+    if (c!=0){pthread_mutex_unlock(&Proto->ready); errc(EXIT_FAILURE, c, "[Proto]@pthread_create");}
+    pthread_mutex_unlock(&Proto->ready);
+
+    c = pthread_attr_destroy(&attr);
+    if(c!=0){errc(EXIT_FAILURE, c, "[Proto]@pthread_attr_destroy");}
+    return i;
+}
+static void* _proto_connect(void* args){
+    /*char** io = args;
+    char* path = io[1];
+
+    void* con = path;
+
+    io[0] = malloc(sizeof(char)*1024);*/
+    // memcpy(io[0], con, sizeof(t_Socket));
+    return args;
+}
+static void proto_connect(t_Proto* proto, const char* appName){
+    int id = proto->thread(proto, _proto_connect, (void*)appName);   // TODO: return id from thread
+    pthread_mutex_lock(&proto->ready);
+    proto->join_thread(proto, id);
+    pthread_mutex_unlock(&proto->ready);
+    return;
+}
+static void* proto_join_thread(t_Proto* Proto, int index){
+    pthread_mutex_lock(&Proto->ptiPool[index].ready);
+    int c = pthread_join(Proto->threads[index], NULL);
+    if(c!=0){errc(EXIT_FAILURE, c, "[Proto]@pthread_join");}
+    char** result = malloc(sizeof(char*)*2);
+    if(Proto->ptiPool[index].io[0]==NULL){result[0] = NULL;}else
+        memcpy(result[0], Proto->ptiPool[index].io[0], strlen(Proto->ptiPool[index].io[0]));
+    if(Proto->ptiPool[index].io[1]==NULL){result[1] = NULL;}else
+        memcpy(result[1], Proto->ptiPool[index].io[1], strlen(Proto->ptiPool[index].io[1]));
+    // this sucks, actually; theoretically, we should decrease by one but then we'd need to free pti stuff; aka I'd now need to implement the PTI pool; might do later
+
+    pthread_mutex_unlock(&Proto->ptiPool[index].ready);
     return result;
 }
 

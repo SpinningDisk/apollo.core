@@ -1,7 +1,7 @@
 # copy paste section
 cmake_minimum_required(VERSION 3.13)  # CMake version check
 project(
-    proto
+    apollo-tests
     VERSION 0.1.0.1
     LANGUAGES C
 )
@@ -15,6 +15,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions(DEBUG)
 endif()
 set(CMAKE_C_FLAGS_DEBUG, "-fsanitize=address")
+set(CMAKE_C_FLAGS_DEBUG, "-O0")
 include_directories(${CMAKE_SOURCE_DIR}/../build/include)
 link_directories(${CMAKE_SOURCE_DIR}/../build/lib)
 find_package(Python3 COMPONENTS Interpreter Development REQUIRED)

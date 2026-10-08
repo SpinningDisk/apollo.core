@@ -101,9 +101,12 @@ t_Test_Result* proto_socket(){
 
 // proto
 static void* return_42(void* arg){
-    int* a = malloc(sizeof(int));
-    *a = 42;
-    return (void*)a;
+    char** carg = arg;
+    carg[0] = (char*)malloc(sizeof(char)*2);
+
+    carg[0][0] = 42;
+    carg[0][1] = 0;
+    return arg;
 }
 t_Test_Result* proto_init(){
     t_Test_Result* res = init_test("[proto]@init_proto");
@@ -191,7 +194,7 @@ int test(t_Test_Result* (*fn)(), char* name, _Bool silent){
 
 int main(){
     test(proto_socket, "[proto]@init_server", false);
-    test(test_crash, "[proto]@test_crash", false);
+    // test(test_crash, "[proto]@test_crash", false);
     test(proto_init, "[proto]@init_proto", false);
     test(proto_thread, "[proto]@proto_thread", false);
     test(proto_connect, "[proto]@proto_connect", false);

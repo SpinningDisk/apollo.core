@@ -44,4 +44,5 @@ debug:
 
 test:
 	make debug
+	clear
 	build/bin/tests/tests

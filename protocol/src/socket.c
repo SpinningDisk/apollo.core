@@ -146,7 +146,7 @@ static t_Parser_Token* init_token(t_Parser_Token* tok, t_Parser_Token_Types type
             tok->size = 0;
             break;
     }
- 
+
     tok->content = malloc(sizeof(char)*tok->empty);
     tok->size = 0;
 }
@@ -168,16 +168,16 @@ t_Socket* init_server(t_Socket* server, const char* path, unsigned int ports){
     if(server==NULL){
         server = malloc(sizeof(t_Socket));
     }
-    
+
     server->socketFd = socket(AF_UNIX, SOCK_STREAM, 0);
     server->addr.sun_family = AF_UNIX;
     strcpy(server->addr.sun_path, path);
-    
-    server->path = malloc(sizeof(char)*strlen(path));
+
+    server->path = malloc(sizeof(char)*strlen(path)+1);
     strcpy(server->path, path);
 
     server->io = malloc(sizeof(void*));
-    
+
     bind(server->socketFd, (struct sockaddr*)&server->addr, sizeof(struct sockaddr_un));
     listen(server->socketFd, ports);
     return server;
@@ -186,16 +186,16 @@ t_Socket* init_client(t_Socket* client, const char* path){
     if(client==NULL){
         client = malloc(sizeof(t_Socket));
     }
-    
+
     client->socketFd = socket(AF_UNIX, SOCK_STREAM, 0);
     client->addr.sun_family = AF_UNIX;
     strcpy(client->addr.sun_path, path);
-    
-    client->path = malloc(sizeof(char)*strlen(path));
+
+    client->path = malloc(sizeof(char)*strlen(path)+1);
     strcpy(client->path, path);
 
     client->io = malloc(sizeof(void*));
-    
+
     connect(client->socketFd, (struct sockaddr*)&client->addr, sizeof(struct sockaddr_un));
     return client;
 }
@@ -227,7 +227,7 @@ static char* recursive_get_next(t_Socket* sock, char* buff, size_t offset){
         char* pos = buff+i;
         for(int j=0; j<1024; j++){
             if(*pos==SOCKET_HEAD_FINISH){
-                
+
                 return NULL;
             }
             read(sock->socketFd, pos, 1);

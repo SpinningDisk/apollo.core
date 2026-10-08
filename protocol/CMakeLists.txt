@@ -13,8 +13,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../build/bin)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_compile_definitions(DEBUG)
+    add_compile_options(-fsanitize=address -fno-omit-frame-pointer -g -O0)
+    add_link_options(-fsanitize=address)
 endif()
-set(CMAKE_C_FLAGS_DEBUG, "-fsanitize=address -g -O0")
+# set(CMAKE_C_FLAGS_DEBUG "-fsanitize=address -g -O0")
 include_directories(${CMAKE_SOURCE_DIR}/../build/include)
 link_directories(${CMAKE_SOURCE_DIR}/../build/lib)
 #end copy paste
@@ -27,8 +29,8 @@ add_library(socket STATIC src/socket.c)
 target_include_directories(socket PUBLIC ${Python3_INCLUDE_DIRS})
 
 add_library(proto STATIC src/proto.c)
-# target_compile_options(proto PRIVATE -fsanitize=address)
-# target_link_options(proto PRIVATE -fsanitize=address)
+target_compile_options(proto PUBLIC -fsanitize=address -fno-omit-frame-pointer -g -O0)
+target_link_options(proto PUBLIC -fsanitize=address)
 
 target_include_directories(proto PUBLIC ${Python3_INCLUDE_DIRS})
 target_include_directories(proto PUBLIC include/)

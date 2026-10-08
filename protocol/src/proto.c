@@ -70,7 +70,7 @@ t_Proto* init_proto(t_Proto* self, const char* appName){
         INSERT_CONST(path, "/tmp/", appName, ".sock");
     #endif
 
-    self->server = init_server(self->server, path, 1);        // sanitizations problems
+    self->server = init_server(NULL, path, 1);        // sanitizations problems
 
     self->threads = (pthread_t*)calloc(PROTO_MAX_THREADS, sizeof(pthread_t));
     self->ptiPool = (t_Proto_Thread_Info*)calloc(PROTO_MAX_THREADS, sizeof(t_Proto_Thread_Info));
@@ -132,6 +132,7 @@ static int proto_thread(t_Proto* Proto, void* (*fn)(void*), void* arg){
     }
     if(io==NULL){errc(EXIT_FAILURE, 0, "[Proto]@no free PTI slots");}
     io[1] = arg;
+    if(io[1]==NULL){io[1] = calloc(2, sizeof(char));}
     c = pthread_create(&(Proto->threads[i]), &attr, fn, io);
     if (c!=0){pthread_mutex_unlock(&Proto->ready); errc(EXIT_FAILURE, c, "[Proto]@pthread_create");}
     pthread_mutex_unlock(&Proto->ready);
@@ -162,11 +163,9 @@ static void* proto_join_thread(t_Proto* Proto, int index){
     int c = pthread_join(Proto->threads[index], NULL);
     if(c!=0){errc(EXIT_FAILURE, c, "[Proto]@pthread_join");}
     char** result = malloc(sizeof(char*)*2);
-    if(Proto->ptiPool[index].io[0]==NULL){result[0] = NULL;}else
-        memcpy(result[0], Proto->ptiPool[index].io[0], strlen(Proto->ptiPool[index].io[0]));
-    if(Proto->ptiPool[index].io[1]==NULL){result[1] = NULL;}else
-        memcpy(result[1], Proto->ptiPool[index].io[1], strlen(Proto->ptiPool[index].io[1]));
-    // this sucks, actually; theoretically, we should decrease by one but then we'd need to free pti stuff; aka I'd now need to implement the PTI pool; might do later
+    result[0] = malloc(sizeof(char)*strlen(Proto->ptiPool[index].io[0])+1);
+    result[1] = malloc(sizeof(char)*strlen(Proto->ptiPool[index].io[1])+1);
+
 
     pthread_mutex_unlock(&Proto->ptiPool[index].ready);
     return result;

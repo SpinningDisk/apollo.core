@@ -1,0 +1,1 @@
+/mnt/data/dev/apollo/.core/protocol/src/impl/rust/target/release/libproto.a: /mnt/data/dev/apollo/.core/protocol/build/lib /mnt/data/dev/apollo/.core/protocol/src/impl/rust/src/build.rs /mnt/data/dev/apollo/.core/protocol/src/impl/rust/src/lib.rs /mnt/data/dev/apollo/.core/protocol/src/impl/rust/src/proto.rs /mnt/data/dev/apollo/.core/protocol/src/impl/rust/src/socket.rs

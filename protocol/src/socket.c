@@ -1,7 +1,6 @@
 #include "../include/socket.h"
 #include <sys/socket.h>
 #include <sys/un.h>
-#include <Python.h>
 #include <unistd.h>
 #include <malloc.h>
 #include <stdio.h>

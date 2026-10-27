@@ -1,4 +1,4 @@
-warning: Cargo.toml: unused manifest key: lib.type
-warning: `rust` (manifest) generated 1 warning
-    Checking rust v0.1.0 (/mnt/data/dev/apollo/.core/protocol/src/impl/rust)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s
+   Compiling rust v0.1.0 (/mnt/data/dev/apollo/.core/protocol/src/impl/rust)
+error: could not compile `rust` (bin "rust") due to 1 previous error; 3 warnings emitted
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `rust` (bin "rust" test) due to 1 previous error; 3 warnings emitted

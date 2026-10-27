@@ -9,4 +9,6 @@ links = "proto"
 libc = "0.2"
 
 [lib]
-type = "static"
+name = "proto"
+crate-type = ["cdylib", "staticlib", "rlib"]
+

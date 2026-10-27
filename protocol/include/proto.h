@@ -3,6 +3,7 @@
 #define PROTO_VER 0.1
 #include <stddef.h>
 #include <socket.h>
+#include <stdio.h>
 
 
 // constants

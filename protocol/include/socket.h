@@ -1,9 +1,9 @@
 #ifndef SOCKET_H
 #define SOCKET_H
-#include <Python.h>
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 #define SOCKET_VER 1.0
 

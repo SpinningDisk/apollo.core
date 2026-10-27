@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/mnt/data/dev/apollo/.core/segl/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

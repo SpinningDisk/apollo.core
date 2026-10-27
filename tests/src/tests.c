@@ -188,13 +188,14 @@ int test(t_Test_Result* (*fn)(), char* name, _Bool silent){
     }
     if(!silent)
         printt(res);
-
-    return res->code;
+    int c = res->code;
+    free(res);
+    return c;
 }
 
 int main(){
     test(proto_socket, "[proto]@init_server", false);
-    // test(test_crash, "[proto]@test_crash", false);
+    test(test_crash, "[proto]@test_crash", false);
     test(proto_init, "[proto]@init_proto", false);
     test(proto_thread, "[proto]@proto_thread", false);
     test(proto_connect, "[proto]@proto_connect", false);

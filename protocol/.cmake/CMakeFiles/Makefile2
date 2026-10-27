@@ -64,12 +64,16 @@ CMAKE_BINARY_DIR = /mnt/data/dev/apollo/.core/protocol/.cmake
 
 # The main recursive "all" target.
 all: CMakeFiles/socket.dir/all
+all: CMakeFiles/socket.shared.dir/all
 all: CMakeFiles/proto.dir/all
+all: CMakeFiles/proto.shared.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/socket.dir/codegen
+codegen: CMakeFiles/socket.shared.dir/codegen
 codegen: CMakeFiles/proto.dir/codegen
+codegen: CMakeFiles/proto.shared.dir/codegen
 .PHONY : codegen
 
 # The main recursive "preinstall" target.
@@ -78,7 +82,9 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/socket.dir/clean
+clean: CMakeFiles/socket.shared.dir/clean
 clean: CMakeFiles/proto.dir/clean
+clean: CMakeFiles/proto.shared.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -88,7 +94,7 @@ clean: CMakeFiles/proto.dir/clean
 CMakeFiles/socket.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/socket.dir/build.make CMakeFiles/socket.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/socket.dir/build.make CMakeFiles/socket.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/data/dev/apollo/.core/protocol/.cmake/CMakeFiles --progress-num=3,4 "Built target socket"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/data/dev/apollo/.core/protocol/.cmake/CMakeFiles --progress-num=5,6 "Built target socket"
 .PHONY : CMakeFiles/socket.dir/all
 
 # Build rule for subdir invocation for target.
@@ -105,13 +111,45 @@ socket: CMakeFiles/socket.dir/rule
 # codegen rule for target.
 CMakeFiles/socket.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/socket.dir/build.make CMakeFiles/socket.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/data/dev/apollo/.core/protocol/.cmake/CMakeFiles --progress-num=3,4 "Finished codegen for target socket"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/data/dev/apollo/.core/protocol/.cmake/CMakeFiles --progress-num=5,6 "Finished codegen for target socket"
 .PHONY : CMakeFiles/socket.dir/codegen
 
 # clean rule for target.
 CMakeFiles/socket.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/socket.dir/build.make CMakeFiles/socket.dir/clean
 .PHONY : CMakeFiles/socket.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/socket.shared.dir
+
+# All Build rule for target.
+CMakeFiles/socket.shared.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/socket.shared.dir/build.make CMakeFiles/socket.shared.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/socket.shared.dir/build.make CMakeFiles/socket.shared.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/data/dev/apollo/.core/protocol/.cmake/CMakeFiles --progress-num=7,8 "Built target socket.shared"
+.PHONY : CMakeFiles/socket.shared.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/socket.shared.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/data/dev/apollo/.core/protocol/.cmake/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/socket.shared.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/data/dev/apollo/.core/protocol/.cmake/CMakeFiles 0
+.PHONY : CMakeFiles/socket.shared.dir/rule
+
+# Convenience name for target.
+socket.shared: CMakeFiles/socket.shared.dir/rule
+.PHONY : socket.shared
+
+# codegen rule for target.
+CMakeFiles/socket.shared.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/socket.shared.dir/build.make CMakeFiles/socket.shared.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/data/dev/apollo/.core/protocol/.cmake/CMakeFiles --progress-num=7,8 "Finished codegen for target socket.shared"
+.PHONY : CMakeFiles/socket.shared.dir/codegen
+
+# clean rule for target.
+CMakeFiles/socket.shared.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/socket.shared.dir/build.make CMakeFiles/socket.shared.dir/clean
+.PHONY : CMakeFiles/socket.shared.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/proto.dir
@@ -144,6 +182,38 @@ CMakeFiles/proto.dir/codegen:
 CMakeFiles/proto.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/proto.dir/build.make CMakeFiles/proto.dir/clean
 .PHONY : CMakeFiles/proto.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/proto.shared.dir
+
+# All Build rule for target.
+CMakeFiles/proto.shared.dir/all: CMakeFiles/socket.shared.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/proto.shared.dir/build.make CMakeFiles/proto.shared.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/proto.shared.dir/build.make CMakeFiles/proto.shared.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/data/dev/apollo/.core/protocol/.cmake/CMakeFiles --progress-num=3,4 "Built target proto.shared"
+.PHONY : CMakeFiles/proto.shared.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/proto.shared.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/data/dev/apollo/.core/protocol/.cmake/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/proto.shared.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/data/dev/apollo/.core/protocol/.cmake/CMakeFiles 0
+.PHONY : CMakeFiles/proto.shared.dir/rule
+
+# Convenience name for target.
+proto.shared: CMakeFiles/proto.shared.dir/rule
+.PHONY : proto.shared
+
+# codegen rule for target.
+CMakeFiles/proto.shared.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/proto.shared.dir/build.make CMakeFiles/proto.shared.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/data/dev/apollo/.core/protocol/.cmake/CMakeFiles --progress-num=3,4 "Finished codegen for target proto.shared"
+.PHONY : CMakeFiles/proto.shared.dir/codegen
+
+# clean rule for target.
+CMakeFiles/proto.shared.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/proto.shared.dir/build.make CMakeFiles/proto.shared.dir/clean
+.PHONY : CMakeFiles/proto.shared.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

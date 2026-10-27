@@ -39,6 +39,8 @@ t_Proto_Thread_Info* init_pti(t_Proto_Thread_Info* pti){
     pti->io = malloc(2*sizeof(char*));
     pti->io[0] = malloc(sizeof(char)*1024);
     pti->io[1] = malloc(sizeof(char)*1024);
+    pti->io[0][1] = 0;
+    pti->io[1][1] = 0;
 
     pthread_mutexattr_t attr;
     pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_NORMAL);
@@ -47,17 +49,8 @@ t_Proto_Thread_Info* init_pti(t_Proto_Thread_Info* pti){
 }
 static void free_pti(t_Proto_Thread_Info* pti){
     pthread_mutex_lock(&pti->ready);
-    free(pti->io[1]);
-    free(pti->io[0]);
     free(pti->io);
     pthread_mutex_destroy(&pti->ready);
-    return;
-}
-static void xfree_pti(t_Proto_Thread_Info* pti){
-    pthread_mutex_lock(&pti->ready);
-    if(pti->io[1]!=NULL){free(pti->io[1]);free(pti->io[0]);}
-    free(pti->io);
-    pthread_mutex_unlock(&pti->ready);
     return;
 }
 t_Proto* init_proto(t_Proto* self, const char* appName){
@@ -101,7 +94,7 @@ static void free_proto(t_Proto* self){
 
     pthread_mutex_lock(&self->ready);
     free(self->threads);
-    for(size_t i=0; i<PROTO_MAX_THREADS; i++){xfree_pti(&self->ptiPool[i]);}
+    for(size_t i=0; i<PROTO_MAX_THREADS; i++){free_pti(&self->ptiPool[i]);}
     free(self->ptiPool);
     pthread_mutex_unlock(&self->ready);
     pthread_mutex_destroy(&self->ready);
@@ -109,36 +102,37 @@ static void free_proto(t_Proto* self){
 }
 
 
-static int proto_thread(t_Proto* Proto, void* (*fn)(void*), void* arg){
-    // creates thread running function "fn" given argument "arg" and stores thread in "Proto->threads" along with some threading information and results in Proto->results
+static int proto_thread(t_Proto* proto, void* (*fn)(void*), void* arg){
+    // creates thread running function "fn" given argument "arg" and stores thread in "proto->threads" along with some threading information and results in proto->results
 
     pthread_attr_t attr;
     int c = pthread_attr_init(&attr);
-    if(c!=0){errc(EXIT_FAILURE, c, "[Proto]@pthread_attr_init");}
+    if(c!=0){errc(EXIT_FAILURE, c, "[proto]@pthread_attr_init");}
 
     c = pthread_attr_setstacksize(&attr, 0x400000);
-    if(c!=0){errc(EXIT_FAILURE, c, "[Proto]@pthread_attr_setstacksize");}
+    if(c!=0){errc(EXIT_FAILURE, c, "[proto]@pthread_attr_setstacksize");}
 
-    pthread_mutex_lock(&Proto->ready);
+    pthread_mutex_lock(&proto->ready);
     char** io = NULL;
     size_t i=0;
     for(; i<PROTO_MAX_THREADS; i++){
-        if(Proto->freePtiSlots[i]){
-            Proto->freePtiSlots[i] = false;
-            init_pti(&Proto->ptiPool[i]);
-            io = Proto->ptiPool[i].io;
+        if(proto->freePtiSlots[i]){
+            proto->freePtiSlots[i] = false;
+            init_pti(&proto->ptiPool[i]);
+            io = proto->ptiPool[i].io;
             break;
         }
     }
-    if(io==NULL){errc(EXIT_FAILURE, 0, "[Proto]@no free PTI slots");}
+    if(io==NULL){errc(EXIT_FAILURE, 0, "[proto]@no free PTI slots");}
     io[1] = arg;
+    io[0] = calloc(2, sizeof(char));
     if(io[1]==NULL){io[1] = calloc(2, sizeof(char));}
-    c = pthread_create(&(Proto->threads[i]), &attr, fn, io);
-    if (c!=0){pthread_mutex_unlock(&Proto->ready); errc(EXIT_FAILURE, c, "[Proto]@pthread_create");}
-    pthread_mutex_unlock(&Proto->ready);
+    c = pthread_create(&(proto->threads[i]), &attr, fn, io);
+    if (c!=0){pthread_mutex_unlock(&proto->ready); errc(EXIT_FAILURE, c, "[proto]@pthread_create");}
+    pthread_mutex_unlock(&proto->ready);
 
     c = pthread_attr_destroy(&attr);
-    if(c!=0){errc(EXIT_FAILURE, c, "[Proto]@pthread_attr_destroy");}
+    if(c!=0){errc(EXIT_FAILURE, c, "[proto]@pthread_attr_destroy");}
     return i;
 }
 static void* _proto_connect(void* args){
@@ -162,10 +156,13 @@ static void* proto_join_thread(t_Proto* Proto, int index){
     pthread_mutex_lock(&Proto->ptiPool[index].ready);
     int c = pthread_join(Proto->threads[index], NULL);
     if(c!=0){errc(EXIT_FAILURE, c, "[Proto]@pthread_join");}
-    char** result = malloc(sizeof(char*)*2);
-    result[0] = malloc(sizeof(char)*strlen(Proto->ptiPool[index].io[0])+1);
-    result[1] = malloc(sizeof(char)*strlen(Proto->ptiPool[index].io[1])+1);
-
+    char** result = malloc(sizeof(char**)*2);
+    // printf("strlen(%s) = ", Proto->ptiPool[index].io[0]);
+    // printf("%d\n", strlen(Proto->ptiPool[index].io[0]));
+    result[0] = (char*)malloc(sizeof(char)*strlen(Proto->ptiPool[index].io[0])+1);
+    result[1] = (char*)malloc(sizeof(char)*strlen(Proto->ptiPool[index].io[1])+1);
+    memcpy(result[0], Proto->ptiPool[index].io[0], strlen(Proto->ptiPool[index].io[0]));
+    memcpy(result[1], Proto->ptiPool[index].io[1], strlen(Proto->ptiPool[index].io[1]));
 
     pthread_mutex_unlock(&Proto->ptiPool[index].ready);
     return result;

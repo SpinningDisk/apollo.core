@@ -3,5 +3,3 @@
 #include <proto.h>
 #include <tests.h>
 #include <usrmgmt.h>
-
-

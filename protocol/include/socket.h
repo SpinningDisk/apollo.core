@@ -100,7 +100,7 @@ typedef struct s_Response{
     t_Status sig;
     char* message;
     size_t MessageLength;
-}t_Response; 
+}t_Response;
 typedef struct s_Socket{
     int socketFd;
     struct sockaddr_un addr;

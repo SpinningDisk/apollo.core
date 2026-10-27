@@ -15,7 +15,7 @@ clean:
 	mkdir build/include
 	mkdir build/lib
 	mkdir build/bin
-build:
+build-c:
 	make clean
 	# building
 	echo "building..."
@@ -28,7 +28,7 @@ build:
 	mkdir build/bin/tests; cp -r tests/build/bin/* build/bin/tests/; cp -r tests/build/lib/* build/lib/;
 	# cd auth/net_rs; cargo build --release;
 	# cp -r auth/ build/auth;
-debug:
+debug-c:
 	make clean
 	mkdir -p build
 	# build
@@ -40,9 +40,16 @@ debug:
 	mkdir build/bin/tests; cp -r tests/build/bin/* build/bin/tests/; cp -r tests/build/lib/* build/lib/;
 	# cd auth/net_rs; cargo build --release;
 	# cp -r auth/ build/auth;
-
-
-test:
+test-c:
 	make debug
 	clear
 	build/bin/tests/tests
+
+clean-rust:
+	@echo NJI
+build-rust:
+	@echo NJI
+debug-ruest:
+	@echo NJI
+test-rust:
+	@echo NJI

@@ -1,10 +1,8 @@
 # git testing (personal stuff)
 
-.PHONY: clean build run test
+.PHONY: clean build-c run-c test-c build-rust run-rust test-rust
 
-#DON'T CHANGE THIS LENGTH (without first chaning make.sh) pls :3
-
-clean:
+clean-c:
 	rm -rf protocol/.cmake
 	rm -rf usrmgmt/.cmake
 	rm -rf test_a/.cmake
@@ -41,15 +39,19 @@ debug-c:
 	# cd auth/net_rs; cargo build --release;
 	# cp -r auth/ build/auth;
 test-c:
-	make debug
+	make debug-c
 	clear
 	build/bin/tests/tests
 
+
 clean-rust:
-	@echo NJI
+	rm -rf protocol/src/impl/rust/target/
 build-rust:
-	@echo NJI
-debug-ruest:
+	clean-c
+	clean-rust
+	make build-c
+	cd protocol/src/impl/rust; cargo build --release; cp protocol/target/release/rust build/bin/protocol/proto.rs
+debug-rust:
 	@echo NJI
 test-rust:
 	@echo NJI

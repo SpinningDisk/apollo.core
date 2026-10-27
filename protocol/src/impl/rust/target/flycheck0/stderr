@@ -1,2 +1,4 @@
+warning: Cargo.toml: unused manifest key: lib.type
+warning: `rust` (manifest) generated 1 warning
     Checking rust v0.1.0 (/mnt/data/dev/apollo/.core/protocol/src/impl/rust)
-    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.36s
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s

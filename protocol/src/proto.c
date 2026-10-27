@@ -136,6 +136,7 @@ static int proto_thread(t_Proto* proto, void* (*fn)(void*), void* arg){
     return i;
 }
 static void* _proto_connect(void* args){
+    printf("Hi, rust :3!\n");
     /*char** io = args;
     char* path = io[1];
 

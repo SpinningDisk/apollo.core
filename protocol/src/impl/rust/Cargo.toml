@@ -9,4 +9,4 @@ links = "proto"
 libc = "0.2"
 
 [lib]
-crate-type = ["dylib"]
+type = "static"

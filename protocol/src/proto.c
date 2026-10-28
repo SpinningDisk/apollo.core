@@ -136,13 +136,12 @@ static int proto_thread(t_Proto* proto, void* (*fn)(void*), void* arg){
     return i;
 }
 static void* _proto_connect(void* args){
-    printf("Hi, rust :3!\n");
-    /*char** io = args;
+    char** io = args;
     char* path = io[1];
 
     void* con = path;
 
-    io[0] = malloc(sizeof(char)*1024);*/
+    // io[0] = malloc(sizeof(char)*1024);
     // memcpy(io[0], con, sizeof(t_Socket));
     return args;
 }

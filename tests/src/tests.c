@@ -1,3 +1,4 @@
+#define PRE_KERNEL
 #include <sys/wait.h>
 #include <stdbool.h>
 #include <stdio.h>

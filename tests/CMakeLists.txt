@@ -20,8 +20,6 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release")
 endif()
 include_directories(${CMAKE_SOURCE_DIR}/../build/include)
 link_directories(${CMAKE_SOURCE_DIR}/../build/lib)
-find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
-include_directories(tests PRIVATE ${Python3_INCLUDE_DIRS})
 #end copy paste
 
 add_executable(tests src/tests.c)

@@ -13,7 +13,7 @@ clean-c:
 	mkdir build/lib
 	mkdir build/bin
 build-c:
-	make clean
+	make clean-c
 	# building
 	echo "building..."
 	mkdir -p build
@@ -30,17 +30,15 @@ build-c:
 	cd segl; mkdir -p .cmake build/lib build/bin; cmake -S ./ -B ./.cmake; cd .cmake; make;
 	mkdir build/bin/segl; cp -r tests/build/bin/* build/bin/segl/; cp -r segl/build/lib/* build/lib/;
 
-	cp SIS/include/* build/include/;
-	cd SIS; mkdir -p .cmake build/lib build/bin; cmake -S ./ -B ./.cmake; cd .cmake; make;
-	mkdir build/bin/SIS; cp -r tests/build/bin/* build/bin/SIS/; cp -r SIS/build/lib/* build/lib/;
+	cp kernel/include/* build/include/;
+	cd kernel; mkdir -p .cmake build/lib build/bin; cmake -S ./ -B ./.cmake; cd .cmake; make;
+	mkdir build/bin/kernel; cp -r tests/build/bin/* build/bin/kernel/; cp -r kernel/build/lib/* build/lib/;
 
 	cp SIS/include/* build/include/;
 	cd SIS; mkdir -p .cmake build/lib build/bin; cmake -S ./ -B ./.cmake; cd .cmake; make;
 	mkdir build/bin/SIS; cp -r tests/build/bin/* build/bin/SIS/; cp -r SIS/build/lib/* build/lib/;
-	# cd auth/net_rs; cargo build --release;
-	# cp -r auth/ build/auth;
 debug-c:
-	make clean
+	make clean-c
 	mkdir -p build
 	# build
 	cp protocol/include/* build/include/;
@@ -49,8 +47,6 @@ debug-c:
 	cp tests/include/* build/include/
 	cd tests; mkdir -p .cmake build/lib build/bin; cmake -DCMAKE_BUILD_TYPE=Debug -S ./ -B ./.cmake; cd .cmake; make;
 	mkdir build/bin/tests; cp -r tests/build/bin/* build/bin/tests/; cp -r tests/build/lib/* build/lib/;
-	# cd auth/net_rs; cargo build --release;
-	# cp -r auth/ build/auth;
 test-c:
 	make debug-c
 	clear

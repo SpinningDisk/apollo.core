@@ -1,2 +1,0 @@
-# The Small Init System
-

@@ -20,33 +20,33 @@ build-c:
 
 	cp protocol/include/* build/include/;
 	cd protocol; mkdir -p .cmake build/lib build/bin; cmake -S ./ -B ./.cmake; cd .cmake; make;
-	mkdir build/bin/protocol/; cp -r protocol/build/bin/* build/bin/protocol/; cp -r protocol/build/lib/* build/lib/;
+	mkdir build/bin/protocol/;cp -r protocol/build/bin/* build/bin/protocol/ 2>/dev/null || :; cp -r protocol/build/lib/* build/lib/ 2>/dev/null || :;
 
 	cp tests/include/* build/include/;
 	cd tests; mkdir -p .cmake build/lib build/bin; cmake -S ./ -B ./.cmake; cd .cmake; make;
-	mkdir build/bin/tests; cp -r tests/build/bin/* build/bin/tests/; cp -r tests/build/lib/* build/lib/;
+	mkdir build/bin/tests;cp -r tests/build/bin/* build/bin/tests/ 2>/dev/null || :; cp -r tests/build/lib/* build/lib/ 2>/dev/null || :;
 
 	cp segl/include/* build/include/;
 	cd segl; mkdir -p .cmake build/lib build/bin; cmake -S ./ -B ./.cmake; cd .cmake; make;
-	mkdir build/bin/segl; cp -r tests/build/bin/* build/bin/segl/; cp -r segl/build/lib/* build/lib/;
+	mkdir build/bin/segl;cp -r tests/build/bin/* build/bin/segl/ 2>/dev/null || :; cp -r segl/build/lib/* build/lib/ 2>/dev/null || :;
 
 	cp kernel/include/* build/include/;
 	cd kernel; mkdir -p .cmake build/lib build/bin; cmake -S ./ -B ./.cmake; cd .cmake; make;
-	mkdir build/bin/kernel; cp -r tests/build/bin/* build/bin/kernel/; cp -r kernel/build/lib/* build/lib/;
+	mkdir build/bin/kernel;cp -r tests/build/bin/* build/bin/kernel/ 2>/dev/null || :; cp -r kernel/build/lib/* build/lib/ 2>/dev/null || :;
 
 	cp SIS/include/* build/include/;
 	cd SIS; mkdir -p .cmake build/lib build/bin; cmake -S ./ -B ./.cmake; cd .cmake; make;
-	mkdir build/bin/SIS; cp -r tests/build/bin/* build/bin/SIS/; cp -r SIS/build/lib/* build/lib/;
+	mkdir build/bin/SIS;cp -r tests/build/bin/* build/bin/SIS/ 2>/dev/null || :; cp -r SIS/build/lib/* build/lib/ 2>/dev/null || :;
 debug-c:
 	make clean-c
 	mkdir -p build
 	# build
 	cp protocol/include/* build/include/;
 	cd protocol; mkdir -p .cmake build/lib build/bin; cmake -DCMAKE_BUILD_TYPE=Debug -S ./ -B ./.cmake; cd .cmake; make;
-	mkdir build/bin/protocol; cp -r protocol/build/bin/* build/bin/protocol/; cp -r protocol/build/lib/* build/lib/;
+	mkdir build/bin/protocol;cp -r protocol/build/bin/* build/bin/protocol/ 2>/dev/null || :; cp -r protocol/build/lib/* build/lib/ 2>/dev/null || :;
 	cp tests/include/* build/include/
 	cd tests; mkdir -p .cmake build/lib build/bin; cmake -DCMAKE_BUILD_TYPE=Debug -S ./ -B ./.cmake; cd .cmake; make;
-	mkdir build/bin/tests; cp -r tests/build/bin/* build/bin/tests/; cp -r tests/build/lib/* build/lib/;
+	mkdir build/bin/tests;cp -r tests/build/bin/* build/bin/tests/ 2>/dev/null || :; cp -r tests/build/lib/* build/lib/ 2>/dev/null || :;
 test-c:
 	make debug-c
 	clear

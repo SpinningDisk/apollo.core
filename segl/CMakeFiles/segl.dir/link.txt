@@ -1,2 +1,0 @@
-/usr/bin/ar qc /mnt/data/dev/apollo/.core/build/lib/libsegl.a CMakeFiles/segl.dir/src/main.c.o
-/usr/bin/ranlib /mnt/data/dev/apollo/.core/build/lib/libsegl.a

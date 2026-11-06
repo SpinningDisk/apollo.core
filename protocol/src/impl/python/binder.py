@@ -3,9 +3,9 @@ raise NotImplementedError("need to figure out how to use ctypes")
 
 class Binder:
     def __init__(self):
-        ctypes.CDLL("libasan.so", mode=ctypes.RTLD_GLOBAL)
-        self.libsocket = ctypes.CDLL("../../../build/lib/libsocket.shared.so", mode=ctypes.RTLD_GLOBAL)
-        self.libproto = ctypes.CDLL("../../../build/lib/libproto.shared.so", mode=ctypes.RTLD_GLOBAL)
+        # ctypes.CDLL("libasan.so", mode=ctypes.RTLD_GLOBAL)
+        self.libsocket = ctypes.CDLL("../../../build/lib/libsocket.so", mode=ctypes.RTLD_GLOBAL)
+        self.libproto = ctypes.CDLL("../../../build/lib/libproto.so", mode=ctypes.RTLD_GLOBAL)
     def call(self, func, args):
         if type(func) is str:
             try:

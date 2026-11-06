@@ -1,3 +1,0 @@
-/mnt/data/dev/apollo/.core/segl/CMakeFiles/segl.dir
-/mnt/data/dev/apollo/.core/segl/CMakeFiles/edit_cache.dir
-/mnt/data/dev/apollo/.core/segl/CMakeFiles/rebuild_cache.dir

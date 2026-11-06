@@ -1,1 +1,0 @@
-/mnt/data/dev/apollo/.core/auth/net_rs/target/release/net_rs: /mnt/data/dev/apollo/.core/auth/net_rs/src/lib.rs /mnt/data/dev/apollo/.core/auth/net_rs/src/main.rs
